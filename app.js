@@ -1,19 +1,14 @@
-//Document is the DOM can be accessed in the console with document.window.
-// Tree is from the top, html, body, p etc.
-
-//Problem: User interaction does not provide the correct results.
-//Solution: Add interactivity so the user can manage daily tasks.
-//Break things down into smaller steps and take each step at a time.
-
-// Event handling, user interaction is what starts the code execution.
+// ===============================
+// Todo App — Clean Code Extended
+// ===============================
 
 // --- Selectors ---
-const newTaskInput = document.getElementById('todo__new-task') // input: new task
-const addButton = document.querySelector('.todo__button--add') // button: add
-const incompleteTasksHolder = document.getElementById('todo__list-incomplete') // ul: toDo
-const completedTasksHolder = document.getElementById('todo__list-completed') // ul: done
+const newTaskInput = document.getElementById('todo__new-task')
+const addButton = document.querySelector('.todo__button--add')
+const incompleteTasksHolder = document.getElementById('todo__list-incomplete')
+const completedTasksHolder = document.getElementById('todo__list-completed')
 
-// --- Create new task item ---
+// --- Create new task element ---
 function createNewTaskElement(taskString) {
 	const listItem = document.createElement('li')
 	listItem.className = 'todo__item'
@@ -45,7 +40,7 @@ function createNewTaskElement(taskString) {
 	return listItem
 }
 
-// --- Add task ---
+// --- Add new task ---
 function addTask() {
 	const text = newTaskInput.value.trim()
 	if (!text) return
@@ -53,11 +48,10 @@ function addTask() {
 	const listItem = createNewTaskElement(text)
 	incompleteTasksHolder.appendChild(listItem)
 	bindTaskEvents(listItem, taskCompleted)
-
 	newTaskInput.value = ''
 }
 
-// --- Edit task ---
+// --- Edit existing task ---
 function editTask() {
 	const listItem = this.parentNode
 	const editInput = listItem.querySelector('.todo__input-edit')
@@ -97,7 +91,7 @@ function taskIncomplete() {
 	bindTaskEvents(listItem, taskCompleted)
 }
 
-// --- Bind events to a task item ---
+// --- Bind task events ---
 function bindTaskEvents(taskListItem, checkBoxEventHandler) {
 	const checkBox = taskListItem.querySelector('.todo__checkbox')
 	const editButton = taskListItem.querySelector('.todo__button--edit')
@@ -111,7 +105,7 @@ function bindTaskEvents(taskListItem, checkBoxEventHandler) {
 // --- Event handlers ---
 addButton.addEventListener('click', addTask)
 
-// --- Initial binding for existing tasks ---
+// --- Initialize existing tasks ---
 for (let i = 0; i < incompleteTasksHolder.children.length; i++) {
 	bindTaskEvents(incompleteTasksHolder.children[i], taskCompleted)
 }
@@ -120,8 +114,3 @@ for (let i = 0; i < completedTasksHolder.children.length; i++) {
 	bindTaskEvents(completedTasksHolder.children[i], taskIncomplete)
 }
 
-// Issues with usability don't get seen until they are in front of a human tester.
-
-//prevent creation of empty tasks.
-
-//Change edit to save when you are in edit mode.
